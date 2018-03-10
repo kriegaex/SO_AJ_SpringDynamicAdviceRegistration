@@ -8,6 +8,9 @@ import org.springframework.aop.support.DefaultPointcutAdvisor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+/**
+ * See https://stackoverflow.com/a/49080647/1082681
+ */
 public class PerformanceApp {
   public static DefaultPointcutAdvisor createAdvisor(String pointcutExpression, Advice advice) {
     AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
