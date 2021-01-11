@@ -1,19 +1,18 @@
 package de.scrum_master.performancemonitor;
 
+import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 import org.apache.commons.logging.Log;
-import org.springframework.aop.interceptor.AbstractMonitoringInterceptor;
+import org.apache.commons.logging.LogFactory;
 
 import java.util.Date;
 
-public class MyPerformanceMonitorInterceptor extends AbstractMonitoringInterceptor {
-  public MyPerformanceMonitorInterceptor(boolean useDynamicLogger) {
-    setUseDynamicLogger(useDynamicLogger);
-  }
+public class MyPerformanceMonitorInterceptor implements MethodInterceptor {
+  protected transient Log log = LogFactory.getLog(getClass());
 
   @Override
-  protected Object invokeUnderTrace(MethodInvocation invocation, Log log) throws Throwable {
-    String name = createInvocationTraceName(invocation);
+  public Object invoke(MethodInvocation invocation) throws Throwable {
+    String name = invocation.getMethod().toString();
     long start = System.currentTimeMillis();
     log.info("Method " + name + " execution started at: " + new Date());
     try {
