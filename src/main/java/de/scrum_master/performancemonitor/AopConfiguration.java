@@ -1,6 +1,5 @@
 package de.scrum_master.performancemonitor;
 
-import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.aop.Advisor;
 import org.springframework.aop.aspectj.AspectJExpressionPointcut;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
@@ -15,8 +14,8 @@ import java.time.Month;
 @Configuration
 @EnableAspectJAutoProxy
 public class AopConfiguration {
-  @Pointcut("execution(public String de.scrum_master.performancemonitor.PersonService.getFullName(..))")
-  public void monitor() {}
+  @Autowired
+  MyProperties myProperties;
 
   @Bean
   public MyPerformanceMonitorInterceptor performanceMonitorInterceptor() {
@@ -27,7 +26,7 @@ public class AopConfiguration {
   @Autowired
   public Advisor performanceMonitorAdvisor(MyPerformanceMonitorInterceptor interceptor) {
     AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
-    pointcut.setExpression("de.scrum_master.performancemonitor.AopConfiguration.monitor()");
+    pointcut.setExpression(myProperties.getPerformanceMonitor());
     return new DefaultPointcutAdvisor(pointcut, interceptor);
   }
 

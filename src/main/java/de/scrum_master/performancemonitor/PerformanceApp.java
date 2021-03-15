@@ -1,17 +1,27 @@
 package de.scrum_master.performancemonitor;
 
 import org.springframework.aop.framework.Advised;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.ConfigurableApplicationContext;
 
 import java.util.Arrays;
 
 /**
  * See https://stackoverflow.com/a/49080647/1082681
+ * See https://stackoverflow.com/a/66637724/1082681
  */
+@SpringBootApplication
+@EnableConfigurationProperties(MyProperties.class)
 public class PerformanceApp {
   public static void main(String[] args) {
-    ApplicationContext context = new AnnotationConfigApplicationContext(AopConfiguration.class);
+    try (ConfigurableApplicationContext context = SpringApplication.run(PerformanceApp.class, args)) {
+      doStuff(context);
+    }
+  }
+
+  private static void doStuff(ConfigurableApplicationContext context) {
     Person person = (Person) context.getBean("person");
     PersonService personService = (PersonService) context.getBean("personService");
 
