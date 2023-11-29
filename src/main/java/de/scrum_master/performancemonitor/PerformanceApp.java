@@ -9,8 +9,8 @@ import org.springframework.context.ConfigurableApplicationContext;
 import java.util.Arrays;
 
 /**
- * See https://stackoverflow.com/a/49080647/1082681
- * See https://stackoverflow.com/a/66637724/1082681
+ * See <a href="https://stackoverflow.com/a/49080647/1082681">StackOverflow q49072611</a><p>
+ * See <a href="https://stackoverflow.com/a/66637724/1082681">StackOverflow q66535042</a>
  */
 @SpringBootApplication
 @EnableConfigurationProperties(MyProperties.class)
